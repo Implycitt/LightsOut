@@ -1,42 +1,10 @@
-<a id="readme-top"></a>
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![project_license][license-shield]][license-url]
-
-
-<h3 align="center">LightsOn</h3>
+<h3 align="center">LightsOut</h3>
 
 <p align="center">
     Puzzle game with linear algebra solver.
   <br />
 </p>
 
-
-<!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#resources">Resources</a></li>
-    <li><a href="#license">License</a></li>
-  </ol>
-</details>
-
-
-<!-- ABOUT THE PROJECT -->
 ## About The Project
 
 LightsOn is my recreation of the Lights Out puzzle game with a linear algebra puzzle
@@ -44,21 +12,15 @@ solver built into it. Lights Out is a puzzle game where you are given a square g
 lights. Each light has an on or off state and when toggled also affects its direct neighbors
 (up, down, left and right). Turns out that this puzzle can be solved using linear algebra
 and that’s exactly what the project set out to do! The program creates different starting
-configurations and has a solve button that will automatically solve the puzzle
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
+configurations and has a solve button that will automatically solve the puzzle.
 
 ### Built With
 
-* [![Python][Python.org]][Python-url]
+* [![Python][Python-shield]][Python-url]
+* [![Pytorch][Pytorch-shield]][Pytorch-url]
+* [![Pytorch][PyQt6-shield]][PyQt6-url]
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-<!-- GETTING STARTED -->
 ## Getting Started
-
 
 ### Prerequisites
 
@@ -71,40 +33,30 @@ configurations and has a solve button that will automatically solve the puzzle
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/Implycitt/LightsOn.git
+   git clone https://github.com/Implycitt/LightsOut.git
+
+   cd LightsOut
    ```
-2. Install Python packages
+2. Create a venv 
    ```sh
-   pip install PyQt5 numpy scipy functools 
+   python3 -m venv .venv
+
+   source .venv/bin/activate
    ```
-3. Run
-  ```sh
-  cd src/
-  python main.py 
-  ```
+3. run the main .py file
+    ```sh
+    python3 src/main.py 
+    ```
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- RESOURCES -->
 ## Resources
 
-* [Physics for the birds](https://www.youtube.com/watch?v=0fHkKcy0x_U), video where I got the idea
-* [pmneila](https://github.com/pmneila/Lights-Out/blob/master/lightsout.py), provided python linear algebra functions
+* [Physics for the birds](https://www.youtube.com/watch?v=0fHkKcy0x_U) - original video inspiration 
 * [MAA](https://people.sc.fsu.edu/~jburkardt/classes/imps_2017/11_28/2690705.pdf)
-* [Madsen Lights Out](https://cau.ac.kr/~mhhgtx/courses/LinearAlgebra/references/MadsenLightsOut.pdf)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-<!-- LICENSE -->
 ## License
 
 Distributed under the MIT license. See `LICENSE.txt` for more information.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-<!-- MARKDOWN LINKS & IMAGES -->
 [forks-shield]: https://img.shields.io/github/forks/Implycitt/LightsOn.svg?style=for-the-badge
 [forks-url]: https://github.com/Implycitt/LightsOn/network/members
 [stars-shield]: https://img.shields.io/github/stars/Implycitt/LightsOn.svg?style=for-the-badge
@@ -113,5 +65,9 @@ Distributed under the MIT license. See `LICENSE.txt` for more information.
 [issues-url]: https://github.com/Implycitt/LightsOn/issues
 [license-shield]: https://img.shields.io/github/license/Implycitt/LightsOn.svg?style=for-the-badge
 [license-url]: https://github.com/Implycitt/LightsOn/blob/master/LICENSE.txt
-[Python.org]: https://img.shields.io/badge/Python-0769AD?style=for-the-badge&logo=python&logoColor=blue
+[Python-shield]: https://img.shields.io/badge/Python-0769AD?style=for-the-badge&logo=python&logoColor=yellow
 [Python-url]: https://python.org 
+[Pytorch-shield]: https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white
+[Pytorch-url]: https://pytorch.org 
+[PyQt6-shield]: https://img.shields.io/badge/PyQt6-FFD43B?style=for-the-badge&logo=Python&logoColor=blue
+[PyQt6-url]: https://pypi.org/project/PyQt6/
