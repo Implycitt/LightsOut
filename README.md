@@ -1,11 +1,6 @@
 <h3 align="center">LightsOut</h3>
 
-<p align="center">
-    Puzzle game with linear algebra solver.
-  <br />
-</p>
-
-## About The Project
+## About 
 
 LightsOn is my recreation of the Lights Out puzzle game with a linear algebra puzzle
 solver built into it. Lights Out is a puzzle game where you are given a square grid of n

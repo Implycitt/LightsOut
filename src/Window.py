@@ -3,7 +3,9 @@ import torch, sys
 from random import randint
 from PyQt6.QtWidgets import QApplication, QWidget, QGridLayout, QPushButton
 
-gridDimensions: int = 5
+from Solve import Solver
+
+gridDimensions: int = 3 
 buttonArr: list = list()
 
 class Window(QApplication):
@@ -20,9 +22,13 @@ class Window(QApplication):
         self.window.setGeometry(100, 100, 1000, 800)
 
         for i, row in enumerate(gridArr):
+            rowArr: list = list()
             for j, element in enumerate(row):
-                buttonArr.append(Button(element, int(gridDimensions*i + j)))
-                self.gridLayout.addWidget(buttonArr[-1], j, i)
+                rowArr.append(Button(element, [i, j]))
+                self.gridLayout.addWidget(rowArr[-1], i, j)
+            buttonArr.append(rowArr)
+
+        Solver.gaussJordanElim(grid, gridArr)
 
         self.window.show()
         sys.exit(self.app.exec())
@@ -31,11 +37,11 @@ class Window(QApplication):
 class Button(QPushButton):
 
     state: int = 0
-    index: int = 0
+    index: list = list()
     green: str = "background-color: green; border: 2px solid white"
     red: str = "background-color: red; border: 2px solid white"
 
-    def __init__(self, state: int, index: int):
+    def __init__(self, state: int, index: list):
         super().__init__()
         self.setMinimumSize(100, 100)
         self.setMaximumSize(300, 300)
@@ -47,17 +53,21 @@ class Button(QPushButton):
 
     def press(self) -> None:
         neighbors: dict = {
-                "up": self.index - gridDimensions,
-                "down": self.index + gridDimensions,
-                "left": self.index - 1,
-                "right": self.index + 1,
+                "up": [self.index[0] + 1, self.index[1]],
+                "down": [self.index[0] - 1, self.index[1]],
+                "left": [self.index[0], self.index[1] - 1],
+                "right": [self.index[0], self.index[1] + 1],
                 "noop": self.index
         }
 
         for direction in neighbors:
-            if neighbors[direction] < 0 or neighbors[direction] >= gridDimensions**2:
+            i, j = neighbors[direction]
+            try:
+                if (i == -1 or j == -1):
+                    continue
+                buttonArr[i][j].completeUpdate()
+            except IndexError:
                 continue
-            buttonArr[neighbors[direction]].completeUpdate()
 
     def updateStyle(self) -> None:
         self.setStyleSheet(self.green) if (self.state) else self.setStyleSheet(self.red)
