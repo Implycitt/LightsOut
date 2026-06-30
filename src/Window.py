@@ -1,7 +1,8 @@
-import sys, time
+import sys
 
 from random import randint
-from PyQt6.QtWidgets import QApplication, QWidget, QGridLayout, QPushButton
+from PyQt6.QtWidgets import QWidget, QGridLayout, QPushButton, QVBoxLayout, QHBoxLayout
+from PyQt6.QtCore import QTimer
 import numpy.typing as npt
 
 from Solve import Solver
@@ -9,23 +10,36 @@ from Solve import Solver
 gridDimensions: int = 5 
 buttonArr: list = list()
 
-class Window(QApplication):
+class Window(QWidget):
 
     def __init__(self) -> None:
-        self.app = QApplication(sys.argv)
-        self.window = QWidget()
+        super().__init__()
+        self.mainLayout = QVBoxLayout()
+
+        self.topLayout = QHBoxLayout()
+        
+        self.newButton = QPushButton("New")
+        self.solveButton = QPushButton("Solve")
+        
+        self.topLayout.addStretch()
+        self.topLayout.addWidget(self.newButton)
+        self.newButton.clicked.connect(self.clearScreen)
+        self.topLayout.addWidget(self.solveButton)
+        self.solveButton.clicked.connect(self.solve)
+
+        self.topLayout.addStretch()
+
         self.gridLayout = QGridLayout()
         self.Solver = Solver(gridDimensions)
         self.gridArr: list = list()
 
-        self.window.setLayout(self.gridLayout)
-        self.window.setGeometry(100, 100, 1000, 800)
+        self.mainLayout.addLayout(self.topLayout)
+        self.mainLayout.addLayout(self.gridLayout)
+
+        self.setLayout(self.mainLayout)
+        self.setGeometry(100, 100, 1000, 800)
 
         self.mainLoop()
-        self.solve()
-
-        self.window.show()
-        sys.exit(self.app.exec())
 
     def mainLoop(self) -> None:
         while not self.Solver.isSolvable(self.gridArr):
@@ -44,10 +58,26 @@ class Window(QApplication):
                 self.gridLayout.itemAt(i).widget().setParent(None)
             except:
                 continue
+        
+        self.gridArr = list()
+        buttonArr.clear()
+        self.mainLoop()
 
     def solve(self) -> None:
         solution: npt.NDArray = self.Solver.Solve(self.gridArr)
-        print(solution)
+        self.press: list = list()
+        for i in range(len(solution)):
+            for j in range(len(solution[i])):
+                if solution[i][j]:
+                    self.press.append(buttonArr[i][j])
+        self.seqPress()
+
+    def seqPress(self) -> None:
+        if self.press == []:
+            return
+
+        self.press.pop().press()
+        QTimer.singleShot(1000, self.seqPress)
 
 class Button(QPushButton):
 

@@ -18,6 +18,9 @@ class Solver:
 
     # we need to see if the null vectors from the base and the config are orthogonal for a solution to exist
     def isSolvable(self, config: list) -> bool:
+        if config == []: 
+            return False
+        config = np.asarray(config)
         assert config.shape[0] == config.shape[1] == self.size, "incompatible shape"
         config = self.GF(np.int_(np.asarray(config).ravel()))
         return not any([np.dot(x, config) & 1 for x in self.null])
