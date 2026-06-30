@@ -1,52 +1,66 @@
-import torch, sys
+import sys, time
 
 from random import randint
 from PyQt6.QtWidgets import QApplication, QWidget, QGridLayout, QPushButton
+import numpy.typing as npt
 
 from Solve import Solver
 
-gridDimensions: int = 3 
+gridDimensions: int = 5 
 buttonArr: list = list()
 
 class Window(QApplication):
 
-    app = QApplication(sys.argv)
-    window = QWidget()
-    gridLayout = QGridLayout()
-
     def __init__(self) -> None:
-        gridArr: list = [[randint(0, 1) for _ in range(gridDimensions)] for _ in range(gridDimensions)]
-        grid: torch.Tensor = torch.tensor(gridArr)
+        self.app = QApplication(sys.argv)
+        self.window = QWidget()
+        self.gridLayout = QGridLayout()
+        self.Solver = Solver(gridDimensions)
+        self.gridArr: list = list()
 
         self.window.setLayout(self.gridLayout)
         self.window.setGeometry(100, 100, 1000, 800)
 
-        for i, row in enumerate(gridArr):
+        self.mainLoop()
+        self.solve()
+
+        self.window.show()
+        sys.exit(self.app.exec())
+
+    def mainLoop(self) -> None:
+        while not self.Solver.isSolvable(self.gridArr):
+            self.gridArr = [[randint(0, 1) for _ in range(gridDimensions)] for _ in range(gridDimensions)]
+
+        for i, row in enumerate(self.gridArr):
             rowArr: list = list()
             for j, element in enumerate(row):
                 rowArr.append(Button(element, [i, j]))
                 self.gridLayout.addWidget(rowArr[-1], i, j)
             buttonArr.append(rowArr)
 
-        Solver.gaussJordanElim(grid, gridArr)
+    def clearScreen(self) -> None:
+        for i in reversed(range(self.gridLayout.count())): 
+            try:
+                self.gridLayout.itemAt(i).widget().setParent(None)
+            except:
+                continue
 
-        self.window.show()
-        sys.exit(self.app.exec())
-
+    def solve(self) -> None:
+        solution: npt.NDArray = self.Solver.Solve(self.gridArr)
+        print(solution)
 
 class Button(QPushButton):
 
-    state: int = 0
-    index: list = list()
-    green: str = "background-color: green; border: 2px solid white"
-    red: str = "background-color: red; border: 2px solid white"
-
     def __init__(self, state: int, index: list):
         super().__init__()
+
+        self.green: str = "background-color: green; border: 2px solid white"
+        self.red: str = "background-color: red; border: 2px solid white"
+
         self.setMinimumSize(100, 100)
         self.setMaximumSize(300, 300)
-        self.state = state
-        self.index = index
+        self.state: int = state
+        self.index: list = index
         self.updateStyle()
 
         self.clicked.connect(self.press)
