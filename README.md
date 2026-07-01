@@ -17,7 +17,7 @@ The program simulates the game by creating a random, valid configuration. Additi
 ## Demo
 ---
 
-<video src='public/demo.mp4' width=180/>
+<video src="./public/demo.mp4" controls="controls" style="max-width: 100%;"/>
 
 ## Getting Started
 ---
