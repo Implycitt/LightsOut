@@ -4,19 +4,27 @@
 ## About 
 ---
 
-Lights Out is an electronic puzzle game released by Tiger Electronics in 1995. The game starts with an N x N grid, usually 5x5, of lights in a randomly configured state: on or off. The goal is to turn off all the lights by pressing a sequence of lights that will toggle its direct neighbors.
+Lights Out is an electronic puzzle game released by Tiger Electronics in 1995. The game starts with an N x N grid, usually 5x5, of lights in a randomly configured state: on or off. The goal is to turn off all the lights by pressing a sequence of lights that will toggle its direct neighbors. Interestingly, the board can be represented as a matrix, and with the help of some linear algebra we can solve directly for a solution to a given configuration. For those interested, a short explanation of the mathematics behind the solver can be found [here](/public/math.md).
+
+The program simulates the game by creating a random, valid configuration. Additionally, there is a "solver" button that steps through the most efficient solution as well as a "new" button which refreshes the board with a new configuration. 
 
 ### Built With
 
 * [![Python][Python-shield]][Python-url]
-* [![Pytorch][Pytorch-shield]][Pytorch-url]
-* [![Pytorch][PyQt6-shield]][PyQt6-url]
+* [![PyQt6][PyQt6-shield]][PyQt6-url]
+* ![NumPy](https://img.shields.io/badge/NumPy-013243.svg?style=for-the-badge&logo=numpy&logoColor=white)
+
+## Demo
+---
+
+<video src='public/demo.mp4' width=180/>
 
 ## Getting Started
 ---
 
 ### Prerequisites
 
+This project was built with Python version 3.14.3. Please ensure that you use at least Python 3.14 for the program to be fully functional. Earlier versions have not been tested and are not guaranteed to work.
 * Python/pip
   ```sh
   py -m pip install --upgrade pip
@@ -36,9 +44,13 @@ Lights Out is an electronic puzzle game released by Tiger Electronics in 1995. T
 
    source .venv/bin/activate
    ```
-3. run the main .py file
+3. Install the packages
+    ```
+    pip install -r requirements.txt     
+    ```
+4. run the main .py file
     ```sh
-    python3 src/main.py 
+    python src/main.py 
     ```
 
 ## Resources
@@ -46,6 +58,8 @@ Lights Out is an electronic puzzle game released by Tiger Electronics in 1995. T
 
 * [Physics for the birds](https://www.youtube.com/watch?v=0fHkKcy0x_U) - original video inspiration 
 * [MAA](https://people.sc.fsu.edu/~jburkardt/classes/imps_2017/11_28/2690705.pdf)
+* [Madsen Lights Out](http://cau.ac.kr/~mhhgtx/courses/LinearAlgebra/references/MadsenLightsOut.pdf)
+* [Wolfram Alpha Lights Out](https://mathworld.wolfram.com/LightsOutPuzzle.html)
 
 ## License
 ---
