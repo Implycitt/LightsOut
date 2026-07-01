@@ -9,6 +9,7 @@ from Solve import Solver
 
 gridDimensions: int = 5 
 buttonArr: list = list()
+gridArr: list = []
 
 class Window(QWidget):
 
@@ -31,7 +32,6 @@ class Window(QWidget):
 
         self.gridLayout = QGridLayout()
         self.Solver = Solver(gridDimensions)
-        self.gridArr: list = list()
 
         self.mainLayout.addLayout(self.topLayout)
         self.mainLayout.addLayout(self.gridLayout)
@@ -42,10 +42,11 @@ class Window(QWidget):
         self.mainLoop()
 
     def mainLoop(self) -> None:
-        while not self.Solver.isSolvable(self.gridArr):
-            self.gridArr = [[randint(0, 1) for _ in range(gridDimensions)] for _ in range(gridDimensions)]
+        global gridArr
+        while not self.Solver.isSolvable(gridArr):
+            gridArr = [[randint(0, 1) for _ in range(gridDimensions)] for _ in range(gridDimensions)]
 
-        for i, row in enumerate(self.gridArr):
+        for i, row in enumerate(gridArr):
             rowArr: list = list()
             for j, element in enumerate(row):
                 rowArr.append(Button(element, [i, j]))
@@ -53,18 +54,20 @@ class Window(QWidget):
             buttonArr.append(rowArr)
 
     def clearScreen(self) -> None:
+        global gridArr
         for i in reversed(range(self.gridLayout.count())): 
             try:
                 self.gridLayout.itemAt(i).widget().setParent(None)
             except:
                 continue
         
-        self.gridArr = list()
+        gridArr = list()
         buttonArr.clear()
         self.mainLoop()
 
     def solve(self) -> None:
-        solution: npt.NDArray = self.Solver.Solve(self.gridArr)
+        global gridArr
+        solution: npt.NDArray = self.Solver.Solve(gridArr)
         self.press: list = list()
         for i in range(len(solution)):
             for j in range(len(solution[i])):
@@ -96,6 +99,7 @@ class Button(QPushButton):
         self.clicked.connect(self.press)
 
     def press(self) -> None:
+        global gridArr
         neighbors: dict = {
                 "up": [self.index[0] + 1, self.index[1]],
                 "down": [self.index[0] - 1, self.index[1]],
@@ -110,6 +114,7 @@ class Button(QPushButton):
                 if (i == -1 or j == -1):
                     continue
                 buttonArr[i][j].completeUpdate()
+                gridArr[i][j] = (gridArr[i][j] + 1) % 2
             except IndexError:
                 continue
 

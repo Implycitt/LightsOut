@@ -1,13 +1,10 @@
-<h3 align="center">LightsOut</h3>
+# Lights Out
+---
 
 ## About 
+---
 
-LightsOn is my recreation of the Lights Out puzzle game with a linear algebra puzzle
-solver built into it. Lights Out is a puzzle game where you are given a square grid of n
-lights. Each light has an on or off state and when toggled also affects its direct neighbors
-(up, down, left and right). Turns out that this puzzle can be solved using linear algebra
-and that’s exactly what the project set out to do! The program creates different starting
-configurations and has a solve button that will automatically solve the puzzle.
+Lights Out is an electronic puzzle game released by Tiger Electronics in 1995. The game starts with an N x N grid, usually 5x5, of lights in a randomly configured state: on or off. The goal is to turn off all the lights by pressing a sequence of lights that will toggle its direct neighbors.
 
 ### Built With
 
@@ -16,6 +13,7 @@ configurations and has a solve button that will automatically solve the puzzle.
 * [![Pytorch][PyQt6-shield]][PyQt6-url]
 
 ## Getting Started
+---
 
 ### Prerequisites
 
@@ -44,11 +42,13 @@ configurations and has a solve button that will automatically solve the puzzle.
     ```
 
 ## Resources
+---
 
 * [Physics for the birds](https://www.youtube.com/watch?v=0fHkKcy0x_U) - original video inspiration 
 * [MAA](https://people.sc.fsu.edu/~jburkardt/classes/imps_2017/11_28/2690705.pdf)
 
 ## License
+---
 
 Distributed under the MIT license. See `LICENSE.txt` for more information.
 
